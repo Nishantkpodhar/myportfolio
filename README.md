@@ -1,65 +1,126 @@
-# My Portfolio Website - Overview 🚀
+# Nishant Kumar — Portfolio
 
-This repository contains the open-source version of my personal portfolio website.  
-Feel free to explore the code and use it for learning and inspiration.
+> A motion-led frontend portfolio for **Nishant Kumar**, a Senior React.js Developer with 7+ years of experience building scalable, accessible web products.
 
----
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=111827)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=fff)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=fff)](https://vite.dev/)
+[![License](https://img.shields.io/badge/License-Personal%20Portfolio-lightgrey)](./LICENSE)
 
-## ⚠️ Usage Notice
+![Portfolio preview](https://github.com/user-attachments/assets/3c4557e7-6392-4928-b8a9-7b2476ef4edd)
 
-This project is shared for learning purposes only.
+## Highlights
 
-Please do NOT:
-- Clone or replicate the full website or design
-- Repost it with minor content changes
-- Use this project for commercial/client work
-- Create tutorials or content using this exact project
+- Responsive, single-page portfolio with custom cursor and smooth navigation
+- Scroll-driven GSAP animations, including a pinned horizontal project showcase on desktop
+- Mobile-friendly project layout that switches to a vertical flow
+- Interactive WebGL tech-stack scene built with React Three Fiber and Rapier physics
+- Lazy-loaded 3D and tech-stack experiences to keep the initial page lighter
+- Career timeline, services, social links, and contact section
 
-If you use parts of the code, you must provide proper credit linking back to the original repository.
+## Built with
 
-Build your own version — don’t just copy.
+| Area | Tools |
+| --- | --- |
+| App | React 18, TypeScript, Vite |
+| Motion | GSAP, ScrollTrigger, ScrollSmoother, `@gsap/react` |
+| 3D | Three.js, React Three Fiber, Drei, Rapier, React Postprocessing |
+| UI | CSS, React Icons, React Fast Marquee |
+| Quality | ESLint, TypeScript |
 
-— Moncy Yohannan
+## Getting started
 
----
+### Requirements
 
-## 🛠️ Instructions
+- [Node.js](https://nodejs.org/) **18.0+** (Node 20 LTS is recommended)
+- npm (included with Node.js)
+- Git, if you are cloning the repository
 
-I have modified the GSAP Club plugins using trial versions.  
-⚠️ Note: Trial plugins cannot be used for production or hosting.
+### Download / clone
 
-For official GSAP Club plugins, refer here:  
-https://gsap.com/docs/v3/Installation/
+```bash
+git clone https://github.com/Nishantkpodhar/myportfolio.git
+cd myportfolio
+```
 
----
+Alternatively, use **Code → Download ZIP** on GitHub, unzip the project, then open the extracted folder in your terminal.
 
-## ⚙️ Tech Stack
+### Install and run
 
-React • TypeScript • GSAP • Three.js • WebGL • HTML • CSS • JavaScript
+```bash
+npm install
+npm run dev
+```
 
----
+Vite prints the local address in the terminal—normally `http://localhost:5173`. Open it in a modern desktop browser for the full animated and 3D experience.
 
-## 🎨 Assets Usage
+### Production build
 
-Some 3D assets included in this repository are free to use for learning purposes.
+```bash
+npm run build
+npm run preview
+```
 
-However:
+`npm run build` type-checks the project and creates an optimized production build in `dist/`. `npm run preview` serves that build locally for a final check.
 
-- The original 3D avatar used on my live portfolio is NOT included in this repository
-- That avatar is a custom asset created over ~1 month
-- It is not open source and not available for reuse
+## Available scripts
 
-Any usage, extraction, or redistribution of that avatar from my live website is strictly prohibited.
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Starts the Vite development server, available to your local network. |
+| `npm run build` | Runs TypeScript project builds and outputs an optimized `dist/` bundle. |
+| `npm run preview` | Serves the already-built production bundle locally. |
+| `npm run lint` | Runs ESLint across the project. |
 
----
+## Project structure
 
-![Protfolio-Preview](https://github.com/user-attachments/assets/3c4557e7-6392-4928-b8a9-7b2476ef4edd)
+```text
+├── public/
+│   ├── images/              # Portfolio previews, technology textures, character source
+│   ├── models/              # GLB, HDR environment, and encrypted character resources
+│   └── draco/               # Draco decoder files for compressed 3D assets
+├── src/
+│   ├── components/
+│   │   ├── Character/       # Landing-page 3D character and scene utilities
+│   │   ├── styles/          # Component styles
+│   │   ├── Work.tsx         # Responsive, scroll-driven projects section
+│   │   └── TechStack.tsx    # Interactive physics-based technology scene
+│   ├── context/             # Loading state provider
+│   ├── App.tsx              # Application composition and lazy loading
+│   └── main.tsx             # Application entry point
+├── index.html
+├── vite.config.ts
+└── package.json
+```
 
----
+## Customising your copy
 
-## 📄 License
+The main portfolio content lives in small, focused components:
 
-This project is licensed under the Personal Portfolio License (PPL) v1.0.
+- Update the introduction and experience summary in `src/components/About.tsx`.
+- Update career entries in `src/components/Career.tsx`.
+- Update project information and screenshots in `src/components/Work.tsx` and `public/images/`.
+- Update contact and social URLs in `src/components/Contact.tsx` and `src/components/SocialIcons.tsx`.
+- Update visual styling through `src/index.css`, `src/App.css`, and `src/components/styles/`.
 
-See the LICENSE file for full details
+If you replace a 3D asset, keep its related model, HDR, and Draco resources in `public/` and verify the asset paths before building.
 
+## Notes for deployment
+
+- This is a static Vite site. Deploy the contents generated in `dist/` to any static host that supports SPA fallback (for example Vercel, Netlify, or GitHub Pages with the appropriate base-path configuration).
+- The site loads local images and 3D assets from `public/`, so their paths begin with `/`. If deploying under a subdirectory, configure Vite's `base` option and update asset paths as needed.
+- `gsap-trial` is included for development. GSAP trial/Club plugins have licensing restrictions; use officially licensed plugins or remove/replace them before a commercial production deployment. See the [GSAP installation documentation](https://gsap.com/docs/v3/Installation/).
+
+## Browser support and performance
+
+For the intended experience, use a current version of Chrome, Edge, Firefox, or Safari with WebGL enabled. The 3D tech-stack section is loaded only on desktop widths and pauses when it is outside the viewport to reduce rendering work. On smaller screens, the portfolio keeps the content accessible without that scene.
+
+## License
+
+This repository is provided under the [Personal Portfolio License (PPL) v1.0](./LICENSE). It is intended for learning and reference. Please read the license before reusing code, assets, or the visual design.
+
+## Contact
+
+- Email: [nishant.k.podhar@gmail.com](mailto:nishant.k.podhar@gmail.com)
+- LinkedIn: [Nishant Kumar](https://www.linkedin.com/in/nishant-kumar-837105138)
+- Repository: [Nishantkpodhar/myportfolio](https://github.com/Nishantkpodhar/myportfolio)
