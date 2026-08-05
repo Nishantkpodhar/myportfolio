@@ -125,31 +125,19 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 }
 
 const TechStack = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   const [isActive, setIsActive] = useState(false);
-
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
-      setIsActive(scrollY > threshold);
-    };
-    document.querySelectorAll(".header a").forEach((elem) => {
-      const element = elem as HTMLAnchorElement;
-      element.addEventListener("click", () => {
-        const interval = setInterval(() => {
-          handleScroll();
-        }, 10);
-        setTimeout(() => {
-          clearInterval(interval);
-        }, 1000);
-      });
-    });
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsActive(entry.isIntersecting),
+      { threshold: 0.2 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
   }, []);
   const materials = useMemo(() => {
     return textures.map(
@@ -167,11 +155,13 @@ const TechStack = () => {
   }, []);
 
   return (
-    <div className="techstack">
+    <section ref={sectionRef} className="techstack" id="techstack">
       <h2> My Techstack</h2>
 
       <Canvas
         shadows
+        dpr={[1, 1.5]}
+        frameloop={isActive ? "always" : "never"}
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
@@ -193,7 +183,7 @@ const TechStack = () => {
             <SphereGeo
               key={i}
               {...props}
-              material={materials[Math.floor(Math.random() * materials.length)]}
+              material={materials[i % materials.length]}
               isActive={isActive}
             />
           ))}
@@ -207,7 +197,7 @@ const TechStack = () => {
           <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
         </EffectComposer>
       </Canvas>
-    </div>
+    </section>
   );
 };
 

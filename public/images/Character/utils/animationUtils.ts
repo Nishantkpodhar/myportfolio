@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
-import { eyebrowBoneNames, typingBoneNames } from "../../../data/boneData";
+import { eyebrowBoneNames, typingBoneNames } from "../../../../src/data/boneData";
 
 const setAnimations = (gltf: GLTF) => {
   let character = gltf.scene;
